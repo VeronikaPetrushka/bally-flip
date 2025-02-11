@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, TextInput, ScrollView, Share } from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions, TextInput, ScrollView, Share, ImageBackground } from "react-native";
 import Clipboard from '@react-native-clipboard/clipboard';
 import Icons from './Icons';
 
@@ -48,75 +48,77 @@ const Custom = () => {
     };    
 
     return (
-        <View style={styles.container}>
-            <View style={styles.upperContainer}>
-                <Text style={styles.upperText}>Custom BallyFlip mode</Text>
-            </View>
-
-            {edit ? (
-                <ScrollView contentContainerStyle={{ width: '100%', alignItems: 'center' }}>
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Heads Name:</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Type here..."
-                            placeholderTextColor="#999"
-                            value={headName}
-                            onChangeText={setHeadName}
-                        />
-                    </View>
-
-                    <Image source={require('../assets/head.png')} style={{ width: 170, height: 170, resizeMode: 'contain', marginVertical: 20 }} />
-
-                    <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Tails Name:</Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Type here..."
-                            placeholderTextColor="#999"
-                            value={tailName}
-                            onChangeText={setTailName}
-                        />
-                    </View>
-
-                    <TouchableOpacity style={styles.btn} onPress={handleFlip} disabled={isFlipping}>
-                        <Text style={styles.btnText}>{isFlipping ? 'Flipping...' : 'Flip'}</Text>
-                    </TouchableOpacity>
-
-                    <View style={{height: 150}} />
-                </ScrollView>
-            ) : (
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <Text style={styles.resultText}>{result === tailName ? 'Tails Win !' : 'Heads Win !'}</Text>
-                    <Image source={currentImage} style={[ currentImage === require('../assets/logo-flip.png') ? { width: '120%', height: height * 0.5, resizeMode: 'contain', marginVertical: 20 } : { width: '100%', height: height * 0.3, resizeMode: 'contain', marginVertical: 20 }]} />
-                    {
-                        !isFlipping && (
-                            <View style={{width: '100%', alignItems: 'center', marginTop: -50}}>
-                                <TouchableOpacity 
-                                    style={{width: 308, height: 74, alignItems: 'center', justifyContent: 'space-between', marginVertical: 10, borderRadius: 22, backgroundColor: '#fff', flexDirection: 'row'}}
-                                    onPress={copyToClipboard}
-                                    >
-                                    <View style={{paddingVertical: 13, paddingHorizontal: 22}}>
-                                        <Text style={styles.shareText}>{result === tailName ? 'Tails:' : 'Heads:'}</Text>
-                                        <Text style={styles.shareText}>{result}</Text>
-                                    </View>
-                                    <TouchableOpacity 
-                                        style={{width: 74, height: 74, borderRadius: 22, padding: 27, backgroundColor: '#fdc300'}}
-                                        onPress={shareResult}
-                                    >
-                                        <Icons type={'share'} />
-                                    </TouchableOpacity>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btn} onPress={handleEdit}>
-                                    <Text style={styles.btnText}>Create new custom Bally Flip</Text>
-                                </TouchableOpacity>    
-                            </View>
-                        )
-                    }
+        <ImageBackground source={require('../assets/back/1.jpg')} style={{flex: 1}}>
+            <View style={styles.container}>
+                <View style={styles.upperContainer}>
+                    <Text style={styles.upperText}>Custom BallyFlip mode</Text>
                 </View>
-            )}
 
-        </View>
+                {edit ? (
+                    <ScrollView contentContainerStyle={{ width: '100%', alignItems: 'center' }}>
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>Heads Name:</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Type here..."
+                                placeholderTextColor="#999"
+                                value={headName}
+                                onChangeText={setHeadName}
+                            />
+                        </View>
+
+                        <Image source={require('../assets/head.png')} style={{ width: 170, height: 170, resizeMode: 'contain', marginVertical: 20 }} />
+
+                        <View style={styles.inputContainer}>
+                            <Text style={styles.label}>Tails Name:</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Type here..."
+                                placeholderTextColor="#999"
+                                value={tailName}
+                                onChangeText={setTailName}
+                            />
+                        </View>
+
+                        <TouchableOpacity style={styles.btn} onPress={handleFlip} disabled={isFlipping}>
+                            <Text style={styles.btnText}>{isFlipping ? 'Flipping...' : 'Flip'}</Text>
+                        </TouchableOpacity>
+
+                        <View style={{height: 150}} />
+                    </ScrollView>
+                ) : (
+                    <View style={{ width: '100%', alignItems: 'center' }}>
+                        <Text style={styles.resultText}>{result === tailName ? 'Tails Win !' : 'Heads Win !'}</Text>
+                        <Image source={currentImage} style={[ currentImage === require('../assets/logo-flip.png') ? { width: '120%', height: height * 0.5, resizeMode: 'contain', marginVertical: 20 } : { width: '100%', height: height * 0.3, resizeMode: 'contain', marginVertical: 20 }]} />
+                        {
+                            !isFlipping && (
+                                <View style={{width: '100%', alignItems: 'center', marginTop: -50}}>
+                                    <TouchableOpacity 
+                                        style={{width: 308, height: 74, alignItems: 'center', justifyContent: 'space-between', marginVertical: 10, borderRadius: 22, backgroundColor: '#fff', flexDirection: 'row'}}
+                                        onPress={copyToClipboard}
+                                        >
+                                        <View style={{paddingVertical: 13, paddingHorizontal: 22}}>
+                                            <Text style={styles.shareText}>{result === tailName ? 'Tails:' : 'Heads:'}</Text>
+                                            <Text style={styles.shareText}>{result}</Text>
+                                        </View>
+                                        <TouchableOpacity 
+                                            style={{width: 74, height: 74, borderRadius: 22, padding: 27, backgroundColor: '#fdc300'}}
+                                            onPress={shareResult}
+                                        >
+                                            <Icons type={'share'} />
+                                        </TouchableOpacity>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.btn} onPress={handleEdit}>
+                                        <Text style={styles.btnText}>Create new custom Bally Flip</Text>
+                                    </TouchableOpacity>    
+                                </View>
+                            )
+                        }
+                    </View>
+                )}
+
+            </View>
+        </ImageBackground>
     );
 };
 
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#a50f31',
     },
 
     upperContainer: {
